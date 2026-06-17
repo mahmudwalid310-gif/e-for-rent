@@ -10,7 +10,8 @@ const { protect, optionalAuth } = require('../middleware/auth');
 const router = express.Router();
 
 // ── Multer image upload ───────────────────────────────────
-const uploadDir = path.join(__dirname, '..', 'uploads');
+const isVercel = process.env.VERCEL === '1';
+const uploadDir = isVercel ? '/tmp/uploads' : path.join(__dirname, '..', 'uploads');
 if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir, { recursive: true });
 
 const storage = multer.diskStorage({
