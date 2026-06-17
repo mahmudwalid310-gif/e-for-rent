@@ -1,0 +1,465 @@
+{
+  "users": [
+    {
+      "_id": "fb69bba7-3d1c-4772-892c-18055909958a",
+      "name": "Admin User",
+      "email": "admin@eforrent.com",
+      "phone": "01700000000",
+      "password": "$2b$12$i7yzfa8rriI/BIUzCRQxeu20sdb9WTJgHyG3MDXaKDcvbluoA8rw6",
+      "role": "admin",
+      "isActive": true,
+      "createdAt": "2026-06-17T15:04:55.065Z"
+    },
+    {
+      "_id": "150de287-b7fd-4aab-ba8c-d3ff0a4bf7c4",
+      "name": "আহসান হাবীব",
+      "email": "ahsan@example.com",
+      "phone": "01811111111",
+      "password": "$2b$12$N/xRGw7/Xv9kMedRYhMGvOz1JLBrdV5ez1RXrmFxw5GsrYXWLRN/i",
+      "role": "landlord",
+      "isActive": true,
+      "createdAt": "2026-06-17T15:04:55.066Z"
+    },
+    {
+      "_id": "aee95a90-9946-4ee9-9bef-c68e52e0edb8",
+      "name": "ফারিহা সুলতানা",
+      "email": "fariha@example.com",
+      "phone": "01922222222",
+      "password": "$2b$12$FveOxxUifPbJJfaesNszbOni3AWHBC3mVQYEaWW1BpVGgWd/0DrP.",
+      "role": "user",
+      "isActive": true,
+      "createdAt": "2026-06-17T15:04:55.066Z"
+    },
+    {
+      "_id": "2a8e5c20-7c2d-4798-8c88-c6773306243e",
+      "name": "করিম সাহেব",
+      "email": "karim@example.com",
+      "phone": "01733333333",
+      "password": "$2b$12$xXgtuNFCWycsOI.bSxURiuwcwjbkVddo2awB48rVH6/Ddq9TTcup2",
+      "role": "landlord",
+      "isActive": true,
+      "createdAt": "2026-06-17T15:04:55.066Z"
+    }
+  ],
+  "properties": [
+    {
+      "_id": "4012141b-db5b-4250-899c-b6e34f2ddb10",
+      "title": "মিরপুর ১০ এ মেস সাবলেটের জন্য ২ রুমের ফ্ল্যাট",
+      "category": "Female Bachelor (মেস/সাবলেট)",
+      "price": 12000,
+      "address": "রোড নং ৫, ব্লক-সি, মিরপুর ১০, ঢাকা",
+      "area": "মিরপুর",
+      "bedrooms": 2,
+      "bathrooms": 1,
+      "advance": "১ মাসের",
+      "description": "মেট্রোরেল স্টেশন থেকে মাত্র ৫ মিনিটের হাঁটা দূরত্বে। শুধুমাত্র চাকরিজীবী মহিলা বা ছাত্রীদের জন্য।",
+      "phone": "01881672634",
+      "images": [
+        "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&q=80"
+      ],
+      "amenities": [
+        "⚡ বিদ্যুৎ (২৪ ঘন্টা)",
+        "🌐 ওয়াইফাই",
+        "🔥 লাইনের গ্যাস"
+      ],
+      "location": {
+        "lat": 23.8103,
+        "lng": 90.3669
+      },
+      "ownerId": "150de287-b7fd-4aab-ba8c-d3ff0a4bf7c4",
+      "isApproved": true,
+      "isAvailable": true,
+      "views": 0,
+      "bills": {
+        "rent": {
+          "name": "রুম ভাড়া",
+          "amount": 12000,
+          "status": "Unpaid"
+        },
+        "current": {
+          "name": "বিদ্যুৎ বিল",
+          "amount": 1200,
+          "status": "Unpaid"
+        },
+        "wifi": {
+          "name": "ওয়াইফাই বিল",
+          "amount": 500,
+          "status": "Unpaid"
+        },
+        "gas": {
+          "name": "গ্যাস বিল",
+          "amount": 1080,
+          "status": "Unpaid"
+        }
+      },
+      "createdAt": "2026-06-17T15:04:55.067Z"
+    },
+    {
+      "_id": "99a9a1ee-7c70-4f64-88f0-8f26873210f0",
+      "title": "উত্তরা সেক্টর ৪ এ পরিবারের জন্য ৩ রুমের ফ্ল্যাট",
+      "category": "Family Rent (ফ্যামিলি)",
+      "price": 25000,
+      "address": "সেক্টর ৪, উত্তরা, ঢাকা",
+      "area": "উত্তরা",
+      "bedrooms": 3,
+      "bathrooms": 2,
+      "advance": "২ মাসের",
+      "description": "শান্ত আবাসিক এলাকায় লিফট, পার্কিং ও নিরাপত্তাসহ সুন্দর ফ্যামিলি ফ্ল্যাট।",
+      "phone": "01700000001",
+      "images": [
+        "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&q=80"
+      ],
+      "amenities": [
+        "⚡ বিদ্যুৎ (২৪ ঘন্টা)",
+        "🌐 ওয়াইফাই",
+        "🛗 লিফট",
+        "🛡️ সিকিউরিটি",
+        "🚗 পার্কিং"
+      ],
+      "location": {
+        "lat": 23.8759,
+        "lng": 90.3795
+      },
+      "ownerId": "150de287-b7fd-4aab-ba8c-d3ff0a4bf7c4",
+      "isApproved": true,
+      "isAvailable": true,
+      "views": 0,
+      "bills": {
+        "rent": {
+          "name": "রুম ভাড়া",
+          "amount": 25000,
+          "status": "Unpaid"
+        },
+        "current": {
+          "name": "বিদ্যুৎ বিল",
+          "amount": 1200,
+          "status": "Unpaid"
+        },
+        "wifi": {
+          "name": "ওয়াইফাই বিল",
+          "amount": 500,
+          "status": "Unpaid"
+        },
+        "gas": {
+          "name": "গ্যাস বিল",
+          "amount": 1080,
+          "status": "Unpaid"
+        }
+      },
+      "createdAt": "2026-06-17T15:04:55.067Z"
+    },
+    {
+      "_id": "5f8f49a7-0f88-4338-8034-2a754ddafdd3",
+      "title": "ধানমন্ডিতে ছেলেদের মেসে ১ সিট খালি",
+      "category": "Male Bachelor (মেস/সাবলেট)",
+      "price": 4500,
+      "address": "রোড ২৭, ধানমন্ডি, ঢাকা",
+      "area": "ধানমন্ডি",
+      "bedrooms": 1,
+      "bathrooms": 1,
+      "advance": "১ মাসের",
+      "description": "চাকরিজীবী ছেলেদের জন্য পরিষ্কার মেস। ওয়াইফাই ও রান্নার সুবিধা।",
+      "phone": "01700000002",
+      "images": [
+        "https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=600&q=80"
+      ],
+      "amenities": [
+        "⚡ বিদ্যুৎ (২৪ ঘন্টা)",
+        "🌐 ওয়াইফাই"
+      ],
+      "location": {
+        "lat": 23.7461,
+        "lng": 90.3742
+      },
+      "ownerId": "150de287-b7fd-4aab-ba8c-d3ff0a4bf7c4",
+      "isApproved": true,
+      "isAvailable": true,
+      "views": 0,
+      "bills": {
+        "rent": {
+          "name": "রুম ভাড়া",
+          "amount": 4500,
+          "status": "Unpaid"
+        },
+        "current": {
+          "name": "বিদ্যুৎ বিল",
+          "amount": 1200,
+          "status": "Unpaid"
+        },
+        "wifi": {
+          "name": "ওয়াইফাই বিল",
+          "amount": 500,
+          "status": "Unpaid"
+        },
+        "gas": {
+          "name": "গ্যাস বিল",
+          "amount": 1080,
+          "status": "Unpaid"
+        }
+      },
+      "createdAt": "2026-06-17T15:04:55.067Z"
+    },
+    {
+      "_id": "bdfd7eb7-9819-41a8-a062-d9e6227ec0c6",
+      "title": "মোহাম্মদপুরে নতুন ২ রুমের পরিবারের বাসা",
+      "category": "Family Rent (ফ্যামিলি)",
+      "price": 16500,
+      "address": "মোহাম্মদপুর, ঢাকা",
+      "area": "মোহাম্মদপুর",
+      "bedrooms": 2,
+      "bathrooms": 1,
+      "advance": "১ মাসের",
+      "description": "নতুন ফ্ল্যাট, সব সুবিধাসহ। বাজারের কাছে, যোগাযোগ সুবিধাজনক।",
+      "phone": "01700000003",
+      "images": [
+        "https://images.unsplash.com/photo-1484154218962-a197022b5858?w=600&q=80"
+      ],
+      "amenities": [
+        "⚡ বিদ্যুৎ (২৪ ঘন্টা)",
+        "🔥 লাইনের গ্যাস"
+      ],
+      "location": {
+        "lat": 23.7637,
+        "lng": 90.3536
+      },
+      "ownerId": "150de287-b7fd-4aab-ba8c-d3ff0a4bf7c4",
+      "isApproved": true,
+      "isAvailable": true,
+      "views": 0,
+      "bills": {
+        "rent": {
+          "name": "রুম ভাড়া",
+          "amount": 16500,
+          "status": "Unpaid"
+        },
+        "current": {
+          "name": "বিদ্যুৎ বিল",
+          "amount": 1200,
+          "status": "Unpaid"
+        },
+        "wifi": {
+          "name": "ওয়াইফাই বিল",
+          "amount": 500,
+          "status": "Unpaid"
+        },
+        "gas": {
+          "name": "গ্যাস বিল",
+          "amount": 1080,
+          "status": "Unpaid"
+        }
+      },
+      "createdAt": "2026-06-17T15:04:55.067Z"
+    },
+    {
+      "_id": "0f4111f4-b9d0-4b9c-ae4d-0dbe501ba6cc",
+      "title": "খিলগাঁও এ চাকরিজীবী ছেলেদের জন্য রুম",
+      "category": "Male Bachelor (মেস/সাবলেট)",
+      "price": 7000,
+      "address": "খিলগাঁও, ঢাকা",
+      "area": "খিলগাঁও",
+      "bedrooms": 1,
+      "bathrooms": 1,
+      "advance": "১ মাসের",
+      "description": "শান্ত পরিবেশে চাকরিজীবীদের জন্য আলাদা রুম। ছাদ ব্যবহারের সুযোগ।",
+      "phone": "01700000004",
+      "images": [
+        "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=600&q=80"
+      ],
+      "amenities": [
+        "⚡ বিদ্যুৎ (২৪ ঘন্টা)",
+        "🌐 ওয়াইফাই"
+      ],
+      "location": {
+        "lat": 23.7369,
+        "lng": 90.4327
+      },
+      "ownerId": "150de287-b7fd-4aab-ba8c-d3ff0a4bf7c4",
+      "isApproved": true,
+      "isAvailable": true,
+      "views": 0,
+      "bills": {
+        "rent": {
+          "name": "রুম ভাড়া",
+          "amount": 7000,
+          "status": "Unpaid"
+        },
+        "current": {
+          "name": "বিদ্যুৎ বিল",
+          "amount": 1200,
+          "status": "Unpaid"
+        },
+        "wifi": {
+          "name": "ওয়াইফাই বিল",
+          "amount": 500,
+          "status": "Unpaid"
+        },
+        "gas": {
+          "name": "গ্যাস বিল",
+          "amount": 1080,
+          "status": "Unpaid"
+        }
+      },
+      "createdAt": "2026-06-17T15:04:55.067Z"
+    },
+    {
+      "_id": "06faf1ee-08a9-4309-9f14-f63500dec695",
+      "title": "ফার্মগেটের কাছে ছাত্রীদের হোস্টেল সিট",
+      "category": "Female Bachelor (মেস/সাবলেট)",
+      "price": 3800,
+      "address": "ফার্মগেট, ঢাকা",
+      "area": "ফার্মগেট",
+      "bedrooms": 1,
+      "bathrooms": 1,
+      "advance": "১ মাসের",
+      "description": "মেডিকেল ও বিশ্ববিদ্যালয় ছাত্রীদের জন্য নিরাপদ হোস্টেল। সার্বক্ষণিক নিরাপত্তা।",
+      "phone": "01700000005",
+      "images": [
+        "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80"
+      ],
+      "amenities": [
+        "⚡ বিদ্যুৎ (২৪ ঘন্টা)",
+        "🌐 ওয়াইফাই",
+        "🛡️ সিকিউরিটি"
+      ],
+      "location": {
+        "lat": 23.7599,
+        "lng": 90.3891
+      },
+      "ownerId": "150de287-b7fd-4aab-ba8c-d3ff0a4bf7c4",
+      "isApproved": true,
+      "isAvailable": true,
+      "views": 1,
+      "bills": {
+        "rent": {
+          "name": "রুম ভাড়া",
+          "amount": 3800,
+          "status": "Unpaid"
+        },
+        "current": {
+          "name": "বিদ্যুৎ বিল",
+          "amount": 1200,
+          "status": "Unpaid"
+        },
+        "wifi": {
+          "name": "ওয়াইফাই বিল",
+          "amount": 500,
+          "status": "Unpaid"
+        },
+        "gas": {
+          "name": "গ্যাস বিল",
+          "amount": 1080,
+          "status": "Unpaid"
+        }
+      },
+      "createdAt": "2026-06-17T15:04:55.067Z"
+    },
+    {
+      "_id": "b7ad4edf-307c-4b50-ae4e-036c8f53c1bf",
+      "title": "বনশ্রীতে সুন্দর ৩ রুমের পরিবারের ফ্ল্যাট",
+      "category": "Family Rent (ফ্যামিলি)",
+      "price": 20000,
+      "address": "ব্লক-সি, বনশ্রী, ঢাকা",
+      "area": "বনশ্রী",
+      "bedrooms": 3,
+      "bathrooms": 2,
+      "advance": "২ মাসের",
+      "description": "বনশ্রীর শান্ত এলাকায় নতুন বিল্ডিংয়ে পরিবারের জন্য আদর্শ ফ্ল্যাট।",
+      "phone": "01700000006",
+      "images": [
+        "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&q=80"
+      ],
+      "amenities": [
+        "⚡ বিদ্যুৎ (২৪ ঘন্টা)",
+        "🔥 লাইনের গ্যাস",
+        "🛗 লিফট",
+        "🚗 পার্কিং"
+      ],
+      "location": {
+        "lat": 23.7418,
+        "lng": 90.4486
+      },
+      "ownerId": "150de287-b7fd-4aab-ba8c-d3ff0a4bf7c4",
+      "isApproved": true,
+      "isAvailable": true,
+      "views": 0,
+      "bills": {
+        "rent": {
+          "name": "রুম ভাড়া",
+          "amount": 20000,
+          "status": "Unpaid"
+        },
+        "current": {
+          "name": "বিদ্যুৎ বিল",
+          "amount": 1200,
+          "status": "Unpaid"
+        },
+        "wifi": {
+          "name": "ওয়াইফাই বিল",
+          "amount": 500,
+          "status": "Unpaid"
+        },
+        "gas": {
+          "name": "গ্যাস বিল",
+          "amount": 1080,
+          "status": "Unpaid"
+        }
+      },
+      "createdAt": "2026-06-17T15:04:55.067Z"
+    },
+    {
+      "_id": "8388865a-bf8c-4a4c-9dde-74a399be392c",
+      "title": "গুলশান ২ এ লাক্সারি অ্যাপার্টমেন্ট",
+      "category": "Family Rent (ফ্যামিলি)",
+      "price": 55000,
+      "address": "গুলশান ২, ঢাকা",
+      "area": "গুলশান",
+      "bedrooms": 4,
+      "bathrooms": 3,
+      "advance": "৩ মাসের",
+      "description": "গুলশান ২ এ আধুনিক সুযোগ সুবিধাসহ প্রিমিয়াম অ্যাপার্টমেন্ট।",
+      "phone": "01700000007",
+      "images": [
+        "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600&q=80"
+      ],
+      "amenities": [
+        "⚡ বিদ্যুৎ (২৪ ঘন্টা)",
+        "🌐 ওয়াইফাই",
+        "🛗 লিফট",
+        "🛡️ সিকিউরিটি",
+        "🚗 পার্কিং"
+      ],
+      "location": {
+        "lat": 23.7935,
+        "lng": 90.4122
+      },
+      "ownerId": "150de287-b7fd-4aab-ba8c-d3ff0a4bf7c4",
+      "isApproved": true,
+      "isAvailable": true,
+      "views": 0,
+      "bills": {
+        "rent": {
+          "name": "রুম ভাড়া",
+          "amount": 55000,
+          "status": "Unpaid"
+        },
+        "current": {
+          "name": "বিদ্যুৎ বিল",
+          "amount": 1200,
+          "status": "Unpaid"
+        },
+        "wifi": {
+          "name": "ওয়াইফাই বিল",
+          "amount": 500,
+          "status": "Unpaid"
+        },
+        "gas": {
+          "name": "গ্যাস বিল",
+          "amount": 1080,
+          "status": "Unpaid"
+        }
+      },
+      "createdAt": "2026-06-17T15:04:55.067Z"
+    }
+  ],
+  "payments": []
+}

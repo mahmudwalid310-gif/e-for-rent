@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-FOR-RENT - Admin Panel</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-100 font-sans">
+
+  <!-- Sidebar + Layout -->
+  <div class="flex min-h-screen">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-gray-900 text-white flex flex-col fixed h-full z-40" id="sidebar">
+      <div class="p-5 border-b border-gray-700">
+        <h1 class="text-xl font-extrabold text-blue-400">E-FOR-RENT</h1>
+        <p class="text-xs text-gray-400 mt-1">Admin Panel</p>
+      </div>
+      <nav class="flex-1 p-4 space-y-1">
+        <button onclick="showTab('stats')"      class="nav-btn w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-700 transition" id="btn-stats">📊 ড্যাশবোর্ড</button>
+        <button onclick="showTab('properties')" class="nav-btn w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-700 transition" id="btn-properties">🏠 প্রপার্টি</button>
+        <button onclick="showTab('users')"      class="nav-btn w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-700 transition" id="btn-users">👥 ইউজার</button>
+        <button onclick="showTab('payments')"   class="nav-btn w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-700 transition" id="btn-payments">💳 পেমেন্ট</button>
+      </nav>
+      <div class="p-4 border-t border-gray-700">
+        <p class="text-xs text-gray-400 mb-2" id="admin-name">...</p>
+        <button onclick="logout()" class="w-full bg-red-600 text-white text-sm py-2 rounded-lg hover:bg-red-700">লগআউট</button>
+        <a href="index.html" class="block text-center text-xs text-gray-400 mt-2 hover:text-white">← মূল সাইটে</a>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="ml-64 flex-1 p-6">
+
+      <!-- Stats Tab -->
+      <div id="tab-stats" class="tab-content">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">📊 ড্যাশবোর্ড</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8" id="stats-grid">
+          <div class="animate-pulse bg-white rounded-xl h-28 shadow-sm"></div>
+          <div class="animate-pulse bg-white rounded-xl h-28 shadow-sm"></div>
+          <div class="animate-pulse bg-white rounded-xl h-28 shadow-sm"></div>
+          <div class="animate-pulse bg-white rounded-xl h-28 shadow-sm"></div>
+        </div>
+        <div class="bg-white rounded-xl shadow-sm p-6">
+          <h3 class="font-bold text-gray-700 mb-4">🕐 সাম্প্রতিক পেমেন্ট</h3>
+          <div id="recent-payments-list" class="text-sm text-gray-500">লোড হচ্ছে...</div>
+        </div>
+      </div>
+
+      <!-- Properties Tab -->
+      <div id="tab-properties" class="tab-content hidden">
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-2xl font-bold text-gray-800">🏠 প্রপার্টি ম্যানেজমেন্ট</h2>
+          <div class="flex gap-2">
+            <button onclick="loadProperties('pending')"  class="bg-yellow-100 text-yellow-800 px-3 py-1.5 rounded-lg text-sm font-bold">পেন্ডিং</button>
+            <button onclick="loadProperties('approved')" class="bg-green-100 text-green-800 px-3 py-1.5 rounded-lg text-sm font-bold">অ্যাপ্রুভড</button>
+            <button onclick="loadProperties('')"         class="bg-gray-100 text-gray-800 px-3 py-1.5 rounded-lg text-sm font-bold">সব</button>
+          </div>
+        </div>
+        <div id="properties-table" class="bg-white rounded-xl shadow-sm overflow-hidden">
+          <p class="text-center p-8 text-gray-400">লোড হচ্ছে...</p>
+        </div>
+      </div>
+
+      <!-- Users Tab -->
+      <div id="tab-users" class="tab-content hidden">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">👥 ইউজার ম্যানেজমেন্ট</h2>
+        <div id="users-table" class="bg-white rounded-xl shadow-sm overflow-hidden">
+          <p class="text-center p-8 text-gray-400">লোড হচ্ছে...</p>
+        </div>
+      </div>
+
+      <!-- Payments Tab -->
+      <div id="tab-payments" class="tab-content hidden">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">💳 পেমেন্ট হিস্ট্রি</h2>
+        <div id="payments-table" class="bg-white rounded-xl shadow-sm overflow-hidden">
+          <p class="text-center p-8 text-gray-400">লোড হচ্ছে...</p>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <div id="toast" class="hidden fixed bottom-6 right-6 z-[100] px-5 py-3 rounded-xl text-white font-semibold shadow-lg"></div>
+
+  <script src="app.js"></script>
+  <script>
+    // ── Guard: Admin only ─────────────────────────────────
+    document.addEventListener('DOMContentLoaded', () => {
+      const user = getUser();
+      if (!user || user.role !== 'admin') {
+        alert('অ্যাডমিন অ্যাক্সেস প্রয়োজন। লগইন করুন।');
+        window.location.href = 'index.html'; return;
+      }
+      document.getElementById('admin-name').textContent = user.name;
+      showTab('stats');
+    });
+
+    // ── Tab Switcher ──────────────────────────────────────
+    function showTab(name) {
+      document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden'));
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('bg-blue-600'));
+      document.getElementById(`tab-${name}`).classList.remove('hidden');
+      document.getElementById(`btn-${name}`).classList.add('bg-blue-600');
+      if (name === 'stats')      loadStats();
+      if (name === 'properties') loadProperties('');
+      if (name === 'users')      loadUsers();
+      if (name === 'payments')   loadPaymentsTable();
+    }
+
+    // ── Stats ─────────────────────────────────────────────
+    async function loadStats() {
+      try {
+        const { stats: s } = await apiFetch('/api/admin/stats');
+        document.getElementById('stats-grid').innerHTML = `
+          ${statCard('👥 মোট ইউজার', s.totalUsers, 'blue')}
+          ${statCard('🏠 মোট প্রপার্টি', s.totalProperties, 'green')}
+          ${statCard('⏳ পেন্ডিং অ্যাপ্রুভাল', s.pendingProperties, 'yellow')}
+          ${statCard('💳 মোট পেমেন্ট', s.totalPayments + ' টি | ' + Number(s.totalRevenue).toLocaleString() + ' ৳', 'purple')}`;
+        loadRecentPayments();
+      } catch (err) { showToast(err.message, 'error'); }
+    }
+
+    function statCard(label, value, color) {
+      const colors = { blue:'bg-blue-50 text-blue-700', green:'bg-green-50 text-green-700', yellow:'bg-yellow-50 text-yellow-700', purple:'bg-purple-50 text-purple-700' };
+      return `<div class="${colors[color]} rounded-xl p-5 shadow-sm"><p class="text-sm font-medium opacity-70">${label}</p><p class="text-2xl font-extrabold mt-1">${value}</p></div>`;
+    }
+
+    async function loadRecentPayments() {
+      try {
+        const { payments } = await apiFetch('/api/admin/payments');
+        const recent = payments.slice(0, 5);
+        document.getElementById('recent-payments-list').innerHTML = recent.length
+          ? `<table class="w-full text-sm"><thead><tr class="text-left text-gray-400 border-b"><th class="pb-2">বিল</th><th class="pb-2">পরিমাণ</th><th class="pb-2">মাধ্যম</th><th class="pb-2">সময়</th></tr></thead><tbody>${
+              recent.map(p => `<tr class="border-b last:border-0 hover:bg-gray-50"><td class="py-2">${p.billName}</td><td class="py-2 font-bold text-blue-600">${Number(p.amount).toLocaleString()} ৳</td><td class="py-2">${p.provider}</td><td class="py-2 text-gray-400">${new Date(p.paidAt).toLocaleDateString('bn-BD')}</td></tr>`).join('')
+            }</tbody></table>` : '<p class="text-center text-gray-400">কোনো পেমেন্ট নেই।</p>';
+      } catch {}
+    }
+
+    // ── Properties ────────────────────────────────────────
+    async function loadProperties(status) {
+      const el = document.getElementById('properties-table');
+      el.innerHTML = '<p class="text-center p-8 text-gray-400">লোড হচ্ছে...</p>';
+      try {
+        const { properties } = await apiFetch(`/api/admin/properties?status=${status}`);
+        el.innerHTML = properties.length
+          ? `<table class="w-full text-sm"><thead class="bg-gray-50 border-b"><tr><th class="px-4 py-3 text-left">শিরোনাম</th><th class="px-4 py-3 text-left">মালিক</th><th class="px-4 py-3 text-left">ভাড়া</th><th class="px-4 py-3 text-left">স্ট্যাটাস</th><th class="px-4 py-3 text-left">অ্যাকশন</th></tr></thead><tbody>${
+              properties.map(p => `<tr class="border-b hover:bg-gray-50">
+                <td class="px-4 py-3 max-w-[200px] truncate font-medium">${p.title}</td>
+                <td class="px-4 py-3 text-gray-500">${p.owner?.name || 'N/A'}</td>
+                <td class="px-4 py-3 text-blue-600 font-bold">${Number(p.price).toLocaleString()} ৳</td>
+                <td class="px-4 py-3"><span class="px-2 py-1 rounded text-xs font-bold ${p.isApproved ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'}">${p.isApproved ? 'Approved' : 'Pending'}</span></td>
+                <td class="px-4 py-3 flex gap-2 flex-wrap">
+                  ${!p.isApproved ? `<button onclick="approveProperty('${p._id}')" class="bg-green-600 text-white px-2 py-1 rounded text-xs font-bold hover:bg-green-700">✓ Approve</button>` : ''}
+                  <button onclick="deleteProperty('${p._id}')" class="bg-red-500 text-white px-2 py-1 rounded text-xs font-bold hover:bg-red-600">🗑 Delete</button>
+                </td></tr>`).join('')
+            }</tbody></table>` : '<p class="text-center p-8 text-gray-400">কোনো প্রপার্টি নেই।</p>';
+      } catch (err) { el.innerHTML = `<p class="text-center p-8 text-red-400">${err.message}</p>`; }
+    }
+
+    async function approveProperty(id) {
+      try {
+        await apiFetch(`/api/admin/properties/${id}/approve`, { method: 'PUT' });
+        showToast('প্রপার্টি অ্যাপ্রুভ হয়েছে!');
+        loadProperties('');
+      } catch (err) { showToast(err.message, 'error'); }
+    }
+    async function deleteProperty(id) {
+      if (!confirm('এই প্রপার্টিটি মুছে ফেলবেন?')) return;
+      try {
+        await apiFetch(`/api/admin/properties/${id}`, { method: 'DELETE' });
+        showToast('প্রপার্টি মুছে গেছে');
+        loadProperties('');
+      } catch (err) { showToast(err.message, 'error'); }
+    }
+
+    // ── Users ─────────────────────────────────────────────
+    async function loadUsers() {
+      const el = document.getElementById('users-table');
+      try {
+        const { users } = await apiFetch('/api/admin/users');
+        el.innerHTML = `<table class="w-full text-sm"><thead class="bg-gray-50 border-b"><tr><th class="px-4 py-3 text-left">নাম</th><th class="px-4 py-3 text-left">ইমেইল</th><th class="px-4 py-3 text-left">রোল</th><th class="px-4 py-3 text-left">স্ট্যাটাস</th><th class="px-4 py-3 text-left">অ্যাকশন</th></tr></thead><tbody>${
+          users.map(u => `<tr class="border-b hover:bg-gray-50">
+            <td class="px-4 py-3 font-medium">${u.name}</td>
+            <td class="px-4 py-3 text-gray-500">${u.email}</td>
+            <td class="px-4 py-3"><select onchange="updateUserRole('${u._id}',this.value)" class="text-xs border rounded px-2 py-1">
+              <option ${u.role==='user'?'selected':''}>user</option>
+              <option ${u.role==='landlord'?'selected':''}>landlord</option>
+              <option ${u.role==='admin'?'selected':''}>admin</option>
+            </select></td>
+            <td class="px-4 py-3"><span class="px-2 py-1 rounded text-xs font-bold ${u.isActive ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">${u.isActive ? 'Active' : 'Banned'}</span></td>
+            <td class="px-4 py-3 flex gap-2">
+              <button onclick="toggleUserStatus('${u._id}',${u.isActive})" class="text-xs px-2 py-1 rounded font-bold ${u.isActive ? 'bg-orange-100 text-orange-700 hover:bg-orange-200' : 'bg-green-100 text-green-700'}">${u.isActive ? 'Ban' : 'Unban'}</button>
+              <button onclick="deleteUser('${u._id}')" class="bg-red-500 text-white px-2 py-1 rounded text-xs font-bold hover:bg-red-600">🗑</button>
+            </td></tr>`).join('')
+        }</tbody></table>`;
+      } catch (err) { el.innerHTML = `<p class="text-center p-8 text-red-400">${err.message}</p>`; }
+    }
+
+    async function updateUserRole(id, role) {
+      try { await apiFetch(`/api/admin/users/${id}`, { method: 'PUT', body: JSON.stringify({ role }) }); showToast('রোল আপডেট হয়েছে'); } catch (err) { showToast(err.message, 'error'); }
+    }
+    async function toggleUserStatus(id, current) {
+      try { await apiFetch(`/api/admin/users/${id}`, { method: 'PUT', body: JSON.stringify({ isActive: !current }) }); showToast('স্ট্যাটাস আপডেট হয়েছে'); loadUsers(); } catch (err) { showToast(err.message, 'error'); }
+    }
+    async function deleteUser(id) {
+      if (!confirm('এই ইউজার মুছে ফেলবেন?')) return;
+      try { await apiFetch(`/api/admin/users/${id}`, { method: 'DELETE' }); showToast('ইউজার মুছে গেছে'); loadUsers(); } catch (err) { showToast(err.message, 'error'); }
+    }
+
+    // ── Payments Table ────────────────────────────────────
+    async function loadPaymentsTable() {
+      const el = document.getElementById('payments-table');
+      try {
+        const { payments } = await apiFetch('/api/admin/payments');
+        el.innerHTML = `<table class="w-full text-sm"><thead class="bg-gray-50 border-b"><tr><th class="px-4 py-3 text-left">রিসিপ্ট</th><th class="px-4 py-3 text-left">বিল</th><th class="px-4 py-3 text-left">পরিমাণ</th><th class="px-4 py-3 text-left">মাধ্যম</th><th class="px-4 py-3 text-left">সময়</th></tr></thead><tbody>${
+          payments.map(p => `<tr class="border-b hover:bg-gray-50">
+            <td class="px-4 py-3 font-mono text-xs text-blue-600"><a href="receipt.html?id=${p.receiptId}" target="_blank">${p.receiptId.slice(0,12)}...</a></td>
+            <td class="px-4 py-3">${p.billName}</td>
+            <td class="px-4 py-3 font-bold text-green-600">${Number(p.amount).toLocaleString()} ৳</td>
+            <td class="px-4 py-3 capitalize">${p.provider}</td>
+            <td class="px-4 py-3 text-gray-400">${new Date(p.paidAt).toLocaleString('bn-BD')}</td></tr>`).join('')
+        }</tbody></table>`;
+      } catch (err) { el.innerHTML = `<p class="text-center p-8 text-red-400">${err.message}</p>`; }
+    }
+  </script>
+</body>
+</html>

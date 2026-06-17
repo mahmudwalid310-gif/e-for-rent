@@ -1,0 +1,83 @@
+/* ============================
+   1. SMOOTH SCROLL
+   ============================ */
+html { scroll-behavior: smooth; }
+
+/* ============================
+   2. CARD HOVER FLOAT EFFECT
+   ============================ */
+.property-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.property-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 30px -8px rgba(0, 0, 0, 0.12);
+}
+
+/* ============================
+   3. LOGO PULSE ANIMATION
+   ============================ */
+@keyframes pulse-logo {
+    0%, 100% { transform: scale(1); }
+    50%       { transform: scale(1.05); }
+}
+.brand-logo {
+    display: inline-block;
+    animation: pulse-logo 3s infinite ease-in-out;
+}
+
+/* ============================
+   4. BUTTON GLOW TRANSITION
+   ============================ */
+button, a.btn-primary {
+    transition: all 0.25s ease-in-out;
+}
+
+/* ============================
+   5. MOBILE HAMBURGER MENU
+   ============================ */
+#mobile-menu {
+    display: none;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem;
+    background: #fff;
+    border-top: 1px solid #e5e7eb;
+}
+#mobile-menu.open { display: flex; }
+
+#hamburger-btn span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: #374151;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+#hamburger-btn.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+#hamburger-btn.open span:nth-child(2) { opacity: 0; }
+#hamburger-btn.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+/* ============================
+   6. SEARCH BAR ANIMATION
+   ============================ */
+.search-bar-input:focus {
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+    outline: none;
+}
+
+/* ============================
+   7. CUSTOM BRAND COLOR
+   ============================ */
+.custom-brand-color { color: #1e3a8a; }
+
+/* ============================
+   8. MODAL OVERLAY FADE
+   ============================ */
+.modal-overlay {
+    animation: fadeIn 0.2s ease;
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}

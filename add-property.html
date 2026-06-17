@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="E-FOR-RENT — আপনার বাসার বিজ্ঞাপন দিন এবং হাজারো ভাড়াটিয়ার কাছে পৌঁছে যান।">
+    <title>E-FOR-RENT - নতুন বাসার বিজ্ঞাপন দিন</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-50 font-sans">
+
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="index.html" class="text-2xl font-bold text-blue-600 brand-logo">E-FOR-RENT</a>
+                <a href="index.html" class="text-gray-700 hover:text-blue-600 font-medium text-sm">← হোমে ফিরুন</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Form Section -->
+    <main class="max-w-3xl mx-auto px-4 py-10">
+        <div class="bg-white p-6 md:p-8 rounded-2xl shadow-md border border-gray-100">
+
+            <div class="text-center mb-8">
+                <h1 class="text-2xl md:text-3xl font-bold text-gray-800">নতুন বাসার বিজ্ঞাপন দিন</h1>
+                <p class="text-gray-500 text-sm mt-2">সহজেই আপনার বাসার বিবরণ লিখে হাজারো ভাড়াটিয়ার কাছে পৌঁছে যান।</p>
+            </div>
+
+            <!-- FIX #5: form calls saveProperty() from app.js with named fields -->
+            <form onsubmit="saveProperty(event)" class="space-y-6">
+
+                <!-- Title -->
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">বিজ্ঞাপনের শিরোনাম (Title) *</label>
+                    <input name="title" type="text" required
+                           placeholder="যেমন: মিরপুর ১০ এ মেস বা সাবলেটের জন্য ২ রুমের ফ্ল্যাট"
+                           class="w-full border border-gray-300 rounded-lg p-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <!-- Category + Price -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">ভাড়াটিয়া ক্যাটাগরি *</label>
+                        <select name="category" required class="w-full border border-gray-300 rounded-lg p-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="">সিলেক্ট করুন</option>
+                            <option value="Family Rent (ফ্যামিলি)">Family Rent (ফ্যামিলি)</option>
+                            <option value="Male Bachelor (মেস/সাবলেট)">Male Bachelor (মেস/সাবলেট)</option>
+                            <option value="Female Bachelor (মেস/সাবলেট)">Female Bachelor (মেস/সাবলেট)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">মাসিক ভাড়া (টাকা) *</label>
+                        <input name="price" type="number" required placeholder="যেমন: 12000"
+                               class="w-full border border-gray-300 rounded-lg p-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                </div>
+
+                <!-- Address -->
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">সম্পূর্ণ ঠিকানা (Address) *</label>
+                    <input name="address" type="text" required
+                           placeholder="যেমন: রোড নং ৫, ব্লক-সি, মিরপুর ১০, ঢাকা"
+                           class="w-full border border-gray-300 rounded-lg p-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <!-- Bedrooms / Bathrooms / Advance -->
+                <div class="grid grid-cols-3 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-700 mb-1">বেডরুম *</label>
+                        <input name="bedrooms" type="number" required placeholder="যেমন: ২"
+                               class="w-full border border-gray-300 rounded-lg p-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-700 mb-1">বাথরুম *</label>
+                        <input name="bathrooms" type="number" required placeholder="যেমন: ১"
+                               class="w-full border border-gray-300 rounded-lg p-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-700 mb-1">অগ্রিম (Advance)</label>
+                        <input name="advance" type="text" placeholder="যেমন: ১ মাসের"
+                               class="w-full border border-gray-300 rounded-lg p-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                </div>
+
+                <!-- Amenities -->
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">কী কী সুবিধা আছে? (টিক দিন)</label>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 text-sm bg-gray-50 p-4 rounded-xl border border-gray-200">
+                        <label class="flex items-center space-x-2 cursor-pointer"><input type="checkbox" class="rounded text-blue-600"> <span>⚡ বিদ্যুৎ (২৪ ঘন্টা)</span></label>
+                        <label class="flex items-center space-x-2 cursor-pointer"><input type="checkbox" class="rounded text-blue-600"> <span>🔥 লাইনের গ্যাস</span></label>
+                        <label class="flex items-center space-x-2 cursor-pointer"><input type="checkbox" class="rounded text-blue-600"> <span>🌐 ওয়াইফাই</span></label>
+                        <label class="flex items-center space-x-2 cursor-pointer"><input type="checkbox" class="rounded text-blue-600"> <span>🛗 লিফট</span></label>
+                        <label class="flex items-center space-x-2 cursor-pointer"><input type="checkbox" class="rounded text-blue-600"> <span>🛡️ সিকিউরিটি</span></label>
+                        <label class="flex items-center space-x-2 cursor-pointer"><input type="checkbox" class="rounded text-blue-600"> <span>🚗 পার্কিং</span></label>
+                    </div>
+                </div>
+
+                <!-- Photo Upload (UI only) -->
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">বাসার ছবি আপলোড করুন</label>
+                    <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-xl bg-gray-50 hover:bg-gray-100 transition cursor-pointer">
+                        <div class="space-y-1 text-center">
+                            <span class="text-3xl text-gray-400">📸</span>
+                            <div class="text-sm text-gray-600">
+                                <label class="cursor-pointer text-blue-600 hover:text-blue-500 font-medium">
+                                    <span>ছবি সিলেক্ট করুন</span>
+                                    <input name="images" type="file" multiple accept="image/*" class="sr-only">
+                                </label>
+                            </div>
+                            <p class="text-xs text-gray-500">PNG, JPG সর্বোচ্চ ৫ মেগাবাইট</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">বিস্তারিত বিবরণ (Description) *</label>
+                    <textarea name="description" required rows="4"
+                              placeholder="বাসা সম্পর্কে বিস্তারিত তথ্য লিখুন (কবে থেকে খালি, মেট্রোরেল থেকে কত দূর ইত্যাদি)..."
+                              class="w-full border border-gray-300 rounded-lg p-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                </div>
+
+                <!-- Phone -->
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">যোগাযোগের মোবাইল নাম্বার *</label>
+                    <input name="phone" type="tel" required placeholder="যেমন: 01881672634"
+                           class="w-full border border-gray-300 rounded-lg p-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <!-- Submit -->
+                <button type="submit" class="w-full bg-blue-600 text-white py-3.5 rounded-xl font-bold hover:bg-blue-700 transition shadow-md text-base">
+                    🚀 বিজ্ঞাপনটি পোস্ট করুন
+                </button>
+            </form>
+        </div>
+    </main>
+
+    <footer class="bg-gray-900 text-gray-500 text-center py-4 text-sm mt-12">
+        <p>&copy; 2026 E-FOR-RENT. All rights reserved.</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="E-FOR-RENT — বাংলাদেশের সেরা বাসা ভাড়ার প্ল্যাটফর্ম। ফ্যামিলি, মেল ব্যাচেলর ও ফিমেল ব্যাচেলর বাসা খুঁজুন সহজে।">
+    <title>E-FOR-RENT - Best Rental Platform in Bangladesh</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-50 font-sans">
+
+    <!-- ===== NAVBAR (FIXED) ===== -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+
+                <!-- Logo -->
+                <span class="text-2xl font-bold text-blue-600 brand-logo">E-FOR-RENT</span>
+
+                <!-- Desktop Nav Links -->
+                <div class="hidden md:flex items-center space-x-5">
+                    <a href="#" class="text-gray-700 hover:text-blue-600 font-medium text-sm">Home</a>
+                    <a href="#how-it-works" class="text-gray-700 hover:text-blue-600 font-medium text-sm">How It Works</a>
+                    <a href="#categories" class="text-gray-700 hover:text-blue-600 font-medium text-sm">Categories</a>
+                    <a href="#popular-areas" class="text-gray-700 hover:text-blue-600 font-medium text-sm">Popular Areas</a>
+                    <a href="#all-listings" class="text-gray-700 hover:text-blue-600 font-medium text-sm">Home Ads</a>
+                </div>
+
+                <!-- Desktop Action Buttons -->
+                <div class="hidden md:flex items-center space-x-3">
+                    <button onclick="openHomePaymentModal()" class="bg-purple-600 text-white px-3 py-2 rounded-xl text-sm font-bold hover:bg-purple-700 shadow-md">💳 বিল পেমেন্ট</button>
+                    <a href="add-property.html" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 text-sm font-semibold transition shadow-sm">বিজ্ঞাপন দিন +</a>
+                    <a id="admin-link" href="admin.html" class="hidden bg-red-600 text-white px-3 py-2 rounded-lg hover:bg-red-700 text-sm font-semibold">⚙️ Admin</a>
+                    <button id="login-btn" onclick="toggleModal('login-modal')" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 text-sm font-semibold">Log In</button>
+                    <button onclick="toggleModal('register-modal')" class="border border-blue-600 text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-50 text-sm font-semibold">Register</button>
+                    <div id="user-menu" class="hidden flex items-center gap-3">
+                        <span class="text-sm font-semibold text-gray-700">👋 <span id="user-name"></span></span>
+                        <button onclick="logout()" class="bg-gray-200 text-gray-700 px-3 py-2 rounded-lg text-sm font-semibold hover:bg-gray-300">Logout</button>
+                    </div>
+                </div>
+
+                <!-- Mobile Hamburger -->
+                <button id="hamburger-btn" onclick="toggleMobileMenu()" class="md:hidden flex flex-col gap-1.5 p-2 rounded-md hover:bg-gray-100">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu">
+            <a href="#" class="text-gray-700 font-medium py-1">Home</a>
+            <a href="#how-it-works" onclick="closeMobileMenu()" class="text-gray-700 font-medium py-1">How It Works</a>
+            <a href="#categories" onclick="closeMobileMenu()" class="text-gray-700 font-medium py-1">Categories</a>
+            <a href="#all-listings" onclick="closeMobileMenu()" class="text-gray-700 font-medium py-1">Home Ads</a>
+            <a href="add-property.html" class="bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-semibold text-center">বিজ্ঞাপন দিন +</a>
+            <button onclick="toggleModal('login-modal'); closeMobileMenu();" class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold">Log In</button>
+        </div>
+    </nav>
+
+    <!-- ===== HERO / SEARCH SECTION ===== -->
+    <header class="bg-gradient-to-r from-blue-50 to-indigo-50 py-16 px-4 text-center">
+        <h1 class="text-4xl font-extrabold text-gray-900 mb-4">আপনার পছন্দের বাসা খুঁজে নিন সহজে</h1>
+        <p class="text-gray-600 mb-8">ফ্যামিলি কিংবা ব্যাচেলর—সবার জন্য নিরাপদ ও ঝামেলাহীন আবাসন</p>
+
+        <!-- Functional Search Bar -->
+        <div class="max-w-4xl mx-auto bg-white p-6 rounded-xl shadow-xl grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div class="md:col-span-2">
+                <label class="block text-left text-sm font-medium text-gray-700 mb-1">Location / এলাকা</label>
+                <input id="search-input" type="text" placeholder="যেমন: মিরপুর, ঢাকা"
+                       class="search-bar-input w-full border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500"
+                       oninput="filterProperties()">
+            </div>
+            <div>
+                <label class="block text-left text-sm font-medium text-gray-700 mb-1">Category</label>
+                <select id="category-filter" class="w-full border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500"
+                        onchange="filterProperties()">
+                    <option value="all">সব ক্যাটাগরি</option>
+                    <option value="Family">Family Rent</option>
+                    <option value="Male">Male Bachelor</option>
+                    <option value="Female">Female Bachelor</option>
+                </select>
+            </div>
+            <div>
+                <label class="block text-left text-sm font-medium text-gray-700 mb-1">Price Range</label>
+                <select id="price-filter" class="w-full border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500"
+                        onchange="filterProperties()">
+                    <option value="all">যেকোনো বাজেট</option>
+                    <option value="0-10000">০ - ১০,০০০ ৳</option>
+                    <option value="10000-20000">১০,০০০ - ২০,০০০ ৳</option>
+                    <option value="20000-999999">২০,০০০+ ৳</option>
+                </select>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== HOW IT WORKS ===== -->
+    <section id="how-it-works" class="max-w-7xl mx-auto px-4 py-12 text-center">
+        <h2 class="text-3xl font-bold text-gray-800 mb-2">এটা কীভাবে কাজ করে?</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
+            <div class="p-6">
+                <div class="w-12 h-12 bg-blue-100 text-blue-600 text-xl font-bold flex items-center justify-center rounded-full mx-auto mb-4">১</div>
+                <h3 class="text-lg font-bold text-gray-800 mb-2">বাসা খুঁজুন</h3>
+                <p class="text-gray-600 text-sm">আপনার বাজেট ও ক্যাটাগরি অনুযায়ী হাজারো বাসার মধ্য থেকে সেরাটি বেছে নিন।</p>
+            </div>
+            <div class="p-6">
+                <div class="w-12 h-12 bg-green-100 text-green-600 text-xl font-bold flex items-center justify-center rounded-full mx-auto mb-4">২</div>
+                <h3 class="text-lg font-bold text-gray-800 mb-2">মালিকের সাথে যোগাযোগ</h3>
+                <p class="text-gray-600 text-sm">পছন্দের বাসার মালিকের সাথে সরাসরি কথা বলুন অথবা নিরাপদ পেমেন্ট করুন।</p>
+            </div>
+            <div class="p-6">
+                <div class="w-12 h-12 bg-purple-100 text-purple-600 text-xl font-bold flex items-center justify-center rounded-full mx-auto mb-4">৩</div>
+                <h3 class="text-lg font-bold text-gray-800 mb-2">বাসায় উঠুন</h3>
+                <p class="text-gray-600 text-sm">ঝামেলা ছাড়াই আপনার নতুন বাসায় শিফট হয়ে যান।</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CATEGORIES ===== -->
+    <section id="categories" class="max-w-7xl mx-auto px-4 py-8 bg-white rounded-2xl shadow-sm my-4">
+        <h2 class="text-2xl font-bold text-gray-800 text-center mb-8">আমাদের ক্যাটাগরি সমূহ</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 p-4">
+            <div class="bg-gray-50 p-6 rounded-xl text-center border-t-4 border-green-500 shadow-sm cursor-pointer hover:shadow-md transition" onclick="document.getElementById('category-filter').value='Family'; filterProperties(); document.getElementById('all-listings').scrollIntoView({behavior:'smooth'});">
+                <div class="text-3xl mb-2">👨‍👩‍👧‍👦</div>
+                <h3 class="text-lg font-bold text-gray-800 mb-1">Family Rent</h3>
+                <span class="text-green-600 font-semibold text-sm">বাসা দেখুন →</span>
+            </div>
+            <div class="bg-gray-50 p-6 rounded-xl text-center border-t-4 border-blue-500 shadow-sm cursor-pointer hover:shadow-md transition" onclick="document.getElementById('category-filter').value='Male'; filterProperties(); document.getElementById('all-listings').scrollIntoView({behavior:'smooth'});">
+                <div class="text-3xl mb-2">👦</div>
+                <h3 class="text-lg font-bold text-gray-800 mb-1">Male Bachelor</h3>
+                <span class="text-blue-600 font-semibold text-sm">বাসা দেখুন →</span>
+            </div>
+            <div class="bg-gray-50 p-6 rounded-xl text-center border-t-4 border-purple-500 shadow-sm cursor-pointer hover:shadow-md transition" onclick="document.getElementById('category-filter').value='Female'; filterProperties(); document.getElementById('all-listings').scrollIntoView({behavior:'smooth'});">
+                <div class="text-3xl mb-2">👩</div>
+                <h3 class="text-lg font-bold text-gray-800 mb-1">Female Bachelor</h3>
+                <span class="text-purple-600 font-semibold text-sm">বাসা দেখুন →</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== POPULAR AREAS ===== -->
+    <section id="popular-areas" class="max-w-7xl mx-auto px-4 py-12">
+        <h2 class="text-2xl font-bold text-gray-800 text-center mb-8">জনপ্রিয় এলাকা সমূহ</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            <div class="relative rounded-xl overflow-hidden shadow-md group cursor-pointer" onclick="document.getElementById('search-input').value='মিরপুর'; filterProperties(); document.getElementById('all-listings').scrollIntoView({behavior:'smooth'});">
+                <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=500&q=80" class="w-full h-40 object-cover group-hover:scale-105 transition duration-300" alt="মিরপুর">
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent flex flex-col justify-end p-4">
+                    <h3 class="text-white font-bold">মিরপুর, ঢাকা</h3>
+                </div>
+            </div>
+            <div class="relative rounded-xl overflow-hidden shadow-md group cursor-pointer" onclick="document.getElementById('search-input').value='উত্তরা'; filterProperties(); document.getElementById('all-listings').scrollIntoView({behavior:'smooth'});">
+                <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=500&q=80" class="w-full h-40 object-cover group-hover:scale-105 transition duration-300" alt="উত্তরা">
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent flex flex-col justify-end p-4">
+                    <h3 class="text-white font-bold">উত্তরা, ঢাকা</h3>
+                </div>
+            </div>
+            <div class="relative rounded-xl overflow-hidden shadow-md group cursor-pointer" onclick="document.getElementById('search-input').value='ধানমন্ডি'; filterProperties(); document.getElementById('all-listings').scrollIntoView({behavior:'smooth'});">
+                <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=500&q=80" class="w-full h-40 object-cover group-hover:scale-105 transition duration-300" alt="ধানমন্ডি">
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent flex flex-col justify-end p-4">
+                    <h3 class="text-white font-bold">ধানমন্ডি, ঢাকা</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== ALL LISTINGS (FIX #3 & #4 — dynamic render with IDs) ===== -->
+    <section id="all-listings" class="max-w-7xl mx-auto px-4 py-12">
+        <h2 class="text-3xl font-bold text-gray-800 text-center mb-2">উপলব্ধ বাসা ভাড়ার বিজ্ঞাপন সমূহ</h2>
+        <p class="text-gray-500 text-center mb-10">আপনার সুবিধাজনক বাসাটি খুঁজে নিতে স্ক্রোল করুন</p>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Listings Grid -->
+            <div id="listings-container" class="lg:col-span-3 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                <!-- Populated by app.js renderProperties() -->
+            </div>
+
+            <!-- Report Sidebar -->
+            <div class="lg:col-span-1">
+                <div id="report" class="bg-red-50 p-5 rounded-xl border border-red-200 sticky top-20">
+                    <h3 class="text-md font-bold text-red-700 mb-1">🚨 কোনো সমস্যা আছে?</h3>
+                    <p class="text-xs text-red-600 mb-4">ভুল বা ফেক বিজ্ঞাপন দেখলে আমাদের রিপোর্ট করুন।</p>
+                    <form id="report-form" onsubmit="submitReport(event)">
+                        <div class="mb-3">
+                            <label class="block text-xs font-medium text-gray-700">নাম/ইমেইল</label>
+                            <input type="text" required class="w-full border border-gray-300 rounded p-2 text-xs focus:ring-1 focus:ring-red-500">
+                        </div>
+                        <div class="mb-3">
+                            <label class="block text-xs font-medium text-gray-700">বিবরণ</label>
+                            <textarea required rows="3" placeholder="সমস্যাটি লিখুন..." class="w-full border border-gray-300 rounded p-2 text-xs focus:ring-1 focus:ring-red-500"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-red-600 text-white py-2 rounded text-xs font-semibold hover:bg-red-700">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TESTIMONIALS ===== -->
+    <section class="bg-blue-600 text-white py-12 px-4">
+        <div class="max-w-7xl mx-auto text-center">
+            <h2 class="text-2xl font-bold mb-8">ইউজাররা আমাদের সম্পর্কে কী বলেন</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-blue-700 p-6 rounded-xl text-left shadow-md">
+                    <p class="text-blue-100 text-sm italic">"ব্যাচেলর ছেলেদের কাছে বাসা ভাড়া দিতে টেনশন হতো। কিন্তু এই সাইটের মাধ্যমে ভেরিফাইড চাকরিজীবী ব্যাচেলর পেয়েছি খুব সহজেই।"</p>
+                    <div class="mt-2 font-bold text-sm">- আহসান হাবীব (বাড়ির মালিক)</div>
+                </div>
+                <div class="bg-blue-700 p-6 rounded-xl text-left shadow-md">
+                    <p class="text-blue-100 text-sm italic">"ঢাকায় মেসে সিট খোঁজা কষ্টের। এই ওয়েবসাইটে ফিমেল ব্যাচেলর ফিল্টার থাকায় আমি মাত্র ২ দিনেই সাবলেট রুম পেয়ে গেছি।"</p>
+                    <div class="mt-2 font-bold text-sm">- ফারিহা সুলতানা (শিক্ষার্থী)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER INFO ===== -->
+    <section id="about" class="bg-gray-800 text-white py-12 px-4">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+                <h2 class="text-xl font-bold mb-4">About Us</h2>
+                <p class="text-gray-400 text-sm leading-relaxed">আমরা বাংলাদেশে বাসা খোঁজার প্রক্রিয়াকে সহজ করতে কাজ করছি। বিশেষ করে ব্যাচেলর ভাই-বোনদের জন্য নিরাপদ এবং ঝামেলাহীন আবাসন খুঁজে দেওয়াই আমাদের মূল লক্ষ্য।</p>
+                <div class="mt-4" id="contact">
+                    <p class="text-gray-400 text-sm">📧 ইমেইল: support@e-for-rent.com</p>
+                </div>
+            </div>
+            <div>
+                <h2 class="text-xl font-bold mb-4">Our Location</h2>
+                <div class="w-full h-32 bg-gray-700 rounded-lg flex items-center justify-center text-sm text-gray-400">
+                    📍 Dhaka, Bangladesh
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-gray-500 text-center py-4 text-sm border-t border-gray-800">
+        <p>&copy; 2026 E-FOR-RENT. All rights reserved.</p>
+    </footer>
+
+    <!-- ===== LOGIN MODAL ===== -->
+    <div id="login-modal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50 modal-overlay">
+        <div class="bg-white p-6 rounded-xl max-w-sm w-full relative shadow-2xl">
+            <button onclick="toggleModal('login-modal')" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-xl">✕</button>
+            <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">Log In</h3>
+            <form onsubmit="handleLogin(event)">
+                <div class="mb-3">
+                    <label class="block text-xs font-medium text-gray-700 mb-1">Email</label>
+                    <input id="login-email" type="email" required class="w-full border border-gray-300 rounded-lg p-2 text-sm focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-xs font-medium text-gray-700 mb-1">Password</label>
+                    <input id="login-password" type="password" required class="w-full border border-gray-300 rounded-lg p-2 text-sm focus:ring-2 focus:ring-blue-500">
+                </div>
+                <button type="submit" class="w-full bg-blue-600 text-white p-2 rounded-lg font-semibold hover:bg-blue-700 text-sm">Sign In</button>
+                <p class="text-center text-xs text-gray-500 mt-3">অ্যাকাউন্ট নেই? <button type="button" onclick="toggleModal('login-modal');toggleModal('register-modal')" class="text-blue-600 font-semibold">Register</button></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- ===== REGISTER MODAL ===== -->
+    <div id="register-modal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50 modal-overlay">
+        <div class="bg-white p-6 rounded-xl max-w-sm w-full relative shadow-2xl">
+            <button onclick="toggleModal('register-modal')" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-xl">✕</button>
+            <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">Register</h3>
+            <form onsubmit="handleRegister(event)" class="space-y-3">
+                <input id="reg-name" type="text" required placeholder="আপনার নাম" class="w-full border border-gray-300 rounded-lg p-2 text-sm focus:ring-2 focus:ring-blue-500">
+                <input id="reg-email" type="email" required placeholder="ইমেইল" class="w-full border border-gray-300 rounded-lg p-2 text-sm focus:ring-2 focus:ring-blue-500">
+                <input id="reg-phone" type="tel" placeholder="মোবাইল নম্বর" class="w-full border border-gray-300 rounded-lg p-2 text-sm focus:ring-2 focus:ring-blue-500">
+                <select id="reg-role" class="w-full border border-gray-300 rounded-lg p-2 text-sm focus:ring-2 focus:ring-blue-500">
+                    <option value="user">ভাড়াটিয়া (Tenant)</option>
+                    <option value="landlord">বাড়ির মালিক (Landlord)</option>
+                </select>
+                <input id="reg-password" type="password" required placeholder="পাসওয়ার্ড (কমপক্ষে ৬ অক্ষর)" class="w-full border border-gray-300 rounded-lg p-2 text-sm focus:ring-2 focus:ring-blue-500">
+                <button type="submit" class="w-full bg-blue-600 text-white p-2 rounded-lg font-semibold hover:bg-blue-700 text-sm">রেজিস্টার করুন</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ===== HOME PAYMENT MODAL ===== -->
+    <div id="home-payment-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 modal-overlay">
+        <div class="bg-white rounded-2xl max-w-md w-full overflow-hidden shadow-2xl">
+            <div class="bg-purple-700 text-white p-4 text-center font-bold text-lg relative">
+                📊 মাসিক বিল পরিশোধ কেন্দ্র
+                <button onclick="closeHomePaymentModal()" class="absolute right-4 top-4 text-white hover:text-gray-200 font-bold">✕</button>
+            </div>
+            <div id="home-bills-list" class="p-6 space-y-3 max-h-72 overflow-y-auto text-sm text-gray-500 text-center">
+                বিজ্ঞাপন পেজ থেকে বিল দেখুন।
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== PAYMENT MODAL (FIX #4 — User selects bKash or Nagad) ===== -->
+    <div id="payment-modal" class="hidden fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center p-4 modal-overlay">
+        <div class="bg-white rounded-2xl max-w-sm w-full overflow-hidden shadow-2xl">
+            <div id="modal-header" class="bg-pink-600 text-white p-4 text-center font-bold text-lg relative">
+                <span id="provider-name">bKash</span> Payment
+                <button onclick="closePaymentModal()" class="absolute right-4 top-4 text-white font-bold text-xl">✕</button>
+            </div>
+            <div class="p-5">
+                <!-- Provider Selector -->
+                <div class="flex gap-2 mb-4">
+                    <button id="btn-bkash" onclick="selectProvider('bkash')" class="flex-1 py-2 rounded-lg font-bold text-sm bg-pink-600 text-white">bKash</button>
+                    <button id="btn-nagad" onclick="selectProvider('nagad')" class="flex-1 py-2 rounded-lg font-bold text-sm bg-gray-100 text-gray-700">Nagad</button>
+                </div>
+                <!-- Bill Info -->
+                <div class="text-center bg-gray-50 p-3 rounded-xl border mb-4">
+                    <p class="text-gray-500 text-xs uppercase font-bold" id="modal-bill-title">বিলের নাম</p>
+                    <p class="text-2xl font-black text-gray-800" id="modal-bill-amount">0 ৳</p>
+                </div>
+                <!-- Form -->
+                <form id="payment-form" onsubmit="processPayment(event)" class="space-y-3">
+                    <input type="hidden" id="pay-bill-type">
+                    <input type="hidden" id="pay-bill-amount">
+                    <input type="tel" required placeholder="মোবাইল নাম্বার (01XXXXXXXXX)" class="w-full border rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-pink-400">
+                    <input type="password" required placeholder="পিন নাম্বার (৪ ডিজিট)" maxlength="4" class="w-full border rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-pink-400">
+                    <button type="submit" id="modal-pay-btn" class="w-full bg-pink-600 text-white py-3.5 rounded-xl font-bold hover:bg-pink-700 shadow-md">
+                        কনফার্ম পেমেন্ট
+                    </button>
+                </form>
+                <p class="text-xs text-gray-400 text-center mt-3">🔒 নিরাপদ পেমেন্ট গেটওয়ে</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="hidden fixed bottom-6 right-6 z-[100] px-5 py-3 rounded-xl text-white font-semibold shadow-lg transition-all"></div>
+
+    <script src="app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            updateNavUI();
+            filterProperties();
+        });
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const btn  = document.getElementById('hamburger-btn');
+            menu.classList.toggle('open');
+            btn.classList.toggle('open');
+        }
+        function closeMobileMenu() {
+            document.getElementById('mobile-menu').classList.remove('open');
+            document.getElementById('hamburger-btn').classList.remove('open');
+        }
+
+        function openHomePaymentModal() {
+            document.getElementById('home-payment-modal').classList.remove('hidden');
+        }
+        function closeHomePaymentModal() {
+            document.getElementById('home-payment-modal').classList.add('hidden');
+        }
+
+        function submitReport(e) {
+            e.preventDefault();
+            alert('✅ রিপোর্ট সাবমিট হয়েছে! ধন্যবাদ।');
+            e.target.reset();
+        }
+    </script>
+</body>
+</html>
